@@ -1,0 +1,144 @@
+{% extends 'patient/base.html' %}
+
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 text-center">
+                 <h1>Skin Cancer identification at HOME!</h1>
+                 <p>Some Brief introduction</p>
+        <a role="button" class="btn btn-info btn-lg" href="{% url 'signupuser' %}">Start</a>
+        </div>
+    </div>
+<br>
+<br>
+<hr>
+ <!-- ********************************************************* COLLAPSE ************************************************* -->
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 text-center">
+             <h5>Overview of Skin Cancer</h5>
+             <br>
+    </div>
+</div>
+
+<div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Collapsible Group Item #1
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Collapsible Group Item #2
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Collapsible Group Item #3
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+
+
+<!-- ************************************************* ABCDE rules ********************************************** -->
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 text-center">
+             <h5>ABCDE rules for Skin Cancer Identification</h5>
+             <br>
+    </div>
+</div>
+
+
+
+    <div class="row ">
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card text-white bg-dark mb-4" >
+          <div class="card-header">A for Asymmetry</div>
+          <div class="card-body">
+            <!-- <h5 class="card-title">Dark card title</h5> -->
+            <p class="card-text">Normal moles are typically symmetrical. If you draw a line through the center, you would have two symmetrical halves. In cases of skin cancer, spots will not look the same on both sides.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card text-white bg-dark mb-4">
+          <div class="card-header">B for Border</div>
+            <div class="card-body">
+              <!-- <h5 class="card-title">Dark card title</h5> -->
+              <p class="card-text">Moles, spots, or “beauty marks" are typically round and of no cause for concern. Those with a blurry and/or jagged edge can be a sign of a cancerous or pre-cancerous growth.</p>
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card text-white bg-dark mb-4" >
+          <div class="card-header">C for Color</div>
+            <div class="card-body">
+              <!-- <h5 class="card-title">Dark card title</h5> -->
+              <p class="card-text"> A mole that has more than one color should be considered suspicious. Color changes can include the darkening of a spot or a lightening in certain parts of the growth.</p>
+            </div>
+        </div>
+      </div>
+
+  <div class="col-lg-4 col-md-6 col-sm-12 ">
+    <div class="card border-dark mb-4" >
+      <div class="card-header">D for Diameter</div>
+      <div class="card-body text-dark">
+        <!-- <h5 class="card-title">Dark card title</h5> -->
+        <p class="card-text">If growth is larger than a pencil eraser (6mm), it needs to be checked by a doctor. This includes areas of skin that do not have any other abnormalities in terms of color, border, or asymmetry.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-12">
+    <div class="card border-dark mb-4" >
+      <div class="card-header">E for Evolving</div>
+        <div class="card-body text-dark">
+          <!-- <h5 class="card-title">Dark card title</h5> -->
+          <p class="card-text">Evolving/Elevation means that the mole or growth is raised and has an uneven surface. It is both the irregularity of the surface and changes in size that should raise the red flag.</p>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- ********************************************************* TOGGLE ******************************************************** -->
+
+
+
+{% endblock %}

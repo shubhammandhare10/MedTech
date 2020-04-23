@@ -1,0 +1,75 @@
+{% extends 'patient/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <h2>Profile Details</h2>
+        <label for="age"><b>Created on: </b></label>
+        {{ patientInfo.created|date:'d F Y,l' }}
+    </div>
+</div>
+
+<div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="Full_name"><b>Full name: </b></label>
+                    {{ patientInfo.Full_name }}
+                    <br>
+                    <label for="age"><b>Age: </b></label>
+                    {{ patientInfo.age }}
+
+                </div>
+
+
+
+                <div class="form-group form-check">
+                <h5>ABDCE rule based identification</h5>
+                <h6>Symptoms found:</h6>
+                <ul>
+                  {% if patientInfo.Mole_has_Asymmetry_and_Irregular_shape %}<li>Asymmetry: Mole has asymmetric and irregular shape</li> {% endif %}
+                  {% if patientInfo.Border_Edge_is_not_smooth_but_Irregular %}<li>Border: Edge is not smooth but irregular</li> {% endif %}
+                  {% if patientInfo.Color_is_Uneven_or_dark %}<li>Color: Color is uneven/dark</li> {% endif %}
+                  {% if patientInfo.Diameter_is_Larger_than_size_of_pencil_eraser %}<li>Diameter: Diameter is larger than the size of a pencil eraser</li> {% endif %}
+                  {% if patientInfo.Spot_is_changing_in_size_and_shape %}<li>Evolving: Spot is changing/evolving in terms of size and shape </li>{% endif %}
+                </ul>
+
+                <h6>Symptoms not found:</h6>
+                <ul>
+                  {% if patientInfo.Mole_has_Asymmetry_and_Irregular_shape %} {% else %}<li>Asymmetry: Mole has asymmetric and irregular shape</li> {% endif %}
+                  {% if patientInfo.Border_Edge_is_not_smooth_but_Irregular %}{% else %}<li>Border: Edge is not smooth but irregular</li> {% endif %}
+                  {% if patientInfo.Color_is_Uneven_or_dark %}{% else %}<li>Color: Color is uneven/dark</li> {% endif %}
+                  {% if patientInfo.Diameter_is_Larger_than_size_of_pencil_eraser %}{% else %}<li>Diameter: Diameter is larger than the size of a pencil eraser</li> {% endif %}
+                  {% if patientInfo.Spot_is_changing_in_size_and_shape %}{% else %}<li>Evolving: Spot is changing/evolving in terms of size and shape </li>{% endif %}
+                </ul>
+
+                <h6>Uploaded Skin Image:</h6>
+                <img  class="img-responsive watch-right" alt="not found" width ="250" height="180" src={% if patientInfo.Skin_image %}"{{patientInfo.Skin_image.url}}"{% endif %}/>
+                <br>
+                </div>
+            </form>
+            <h5>Your skin cancer identification result is:  <b>{{ patientInfo.result  }}</b></h5>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+<!-- *************************************************************************************** -->
+
+<!-- {{ patientInfo.Full_name }}
+
+<p>Your skin cancer identification result is:  <b>{{ patientInfo.result  }}</b></p> -->
+
+{% endblock %}

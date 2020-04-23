@@ -1,0 +1,23 @@
+INFO:django.utils.autoreload:C:\Users\shubh\Desktop\medtech-project\patient\views.py changed, reloading.
+DEBUG:asyncio:Using selector: SelectSelector
+INFO:django.utils.autoreload:C:\Users\shubh\Desktop\medtech-project\patient\views.py changed, reloading.
+DEBUG:asyncio:Using selector: SelectSelector
+DEBUG:root:request.method=POST
+DEBUG:root:form=<tr><th><label for="id_Full_name">Full name:</label></th><td><input type="text" name="Full_name" value="adaeas" maxlength="50" required id="id_Full_name"></td></tr>
+<tr><th><label for="id_age">Age:</label></th><td><input type="text" name="age" value="as" maxlength="2" required id="id_age"></td></tr>
+<tr><th><label for="id_Mole_has_Asymmetry_and_Irregular_shape">Mole has Asymmetry and Irregular shape:</label></th><td><input type="checkbox" name="Mole_has_Asymmetry_and_Irregular_shape" id="id_Mole_has_Asymmetry_and_Irregular_shape"></td></tr>
+<tr><th><label for="id_Border_Edge_is_not_smooth_but_Irregular">Border Edge is not smooth but Irregular:</label></th><td><input type="checkbox" name="Border_Edge_is_not_smooth_but_Irregular" id="id_Border_Edge_is_not_smooth_but_Irregular"></td></tr>
+<tr><th><label for="id_Color_is_Uneven_or_dark">Color is Uneven or dark:</label></th><td><input type="checkbox" name="Color_is_Uneven_or_dark" id="id_Color_is_Uneven_or_dark"></td></tr>
+<tr><th><label for="id_Diameter_is_Larger_than_size_of_pencil_eraser">Diameter is Larger than size of pencil eraser:</label></th><td><input type="checkbox" name="Diameter_is_Larger_than_size_of_pencil_eraser" id="id_Diameter_is_Larger_than_size_of_pencil_eraser"></td></tr>
+<tr><th><label for="id_Spot_is_changing_in_size_and_shape">Spot is changing in size and shape:</label></th><td><input type="checkbox" name="Spot_is_changing_in_size_and_shape" id="id_Spot_is_changing_in_size_and_shape"></td></tr>
+<tr><th><label for="id_Skin_image">Skin image:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="file" name="Skin_image" accept="image/*" required id="id_Skin_image"></td></tr>
+DEBUG:root:form is not valid
+ERROR:django.request:Internal Server Error: /create/
+Traceback (most recent call last):
+  File "C:\Users\shubh\AppData\Local\Programs\Python\Python37\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\shubh\AppData\Local\Programs\Python\Python37\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view patient.views.createpatientinfo didn't return an HttpResponse object. It returned None instead.
+INFO:django.utils.autoreload:C:\Users\shubh\Desktop\medtech-project\patient\views.py changed, reloading.
+DEBUG:asyncio:Using selector: SelectSelector

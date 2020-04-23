@@ -1,0 +1,51 @@
+{% extends 'patient/base.html' %}
+
+{% block content %}
+
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+        {% if patientsInfo %}
+             <h1>{{ patientsInfo.count }} Current Profile{{ patientsInfo.count|pluralize }}</h1>
+        {% else %}
+             <h1>Current Profiles</h1>
+        {% endif %}
+    </div>
+</div>
+<!-- ************************************************ -->
+<div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+    {% if patientsInfo %}
+        <div class="list-group">
+            {% for patient in patientsInfo %}
+                <a href='{% url 'viewpatientinfo' patient.id %}'>
+                   {{ patient.Full_name }}
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center">
+            <h2>Looks like you don't have any profiles!</h2>
+        <br>
+        <a role="button" class="btn btn-primary" href="{% url 'createpatientinfo' %}">New Todo</a>
+        </div>
+    {% endif %}
+    </div>
+</div>
+<!-- *********************************************** -->
+<!-- <ul>
+  {% for patient in patientsInfo %}
+  <li>
+    <a href='{% url 'viewpatientinfo' patient.id %}'>
+    {{ patient.Full_name }}
+    </a>
+    <br>
+    <br> -->
+
+
+<!--
+  </li>
+  {% endfor %}
+</ul> -->
+
+{% endblock %}

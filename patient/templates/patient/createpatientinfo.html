@@ -1,0 +1,34 @@
+{% extends 'patient/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <h2>Create Medical Profile</h2>
+    </div>
+</div>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
+
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  {{ form|crispy }}
+
+<br>
+<button type="submit" class="btn btn-dark">Save</button>
+</form>
+
+
+
+
+{% endblock %}
