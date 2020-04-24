@@ -6,7 +6,7 @@
 <div class="row justify-content-center mt-5">
     <div class="col-md-10">
         {% if patientsInfo %}
-             <h1>{{ patientsInfo.count }} Current Profile{{ patientsInfo.count|pluralize }}</h1>
+             <h1>You have {{ patientsInfo.count }} Current Profile{{ patientsInfo.count|pluralize }}</h1>
         {% else %}
              <h1>Current Profiles</h1>
         {% endif %}
