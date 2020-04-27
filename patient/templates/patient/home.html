@@ -1,22 +1,38 @@
 {% extends 'patient/base.html' %}
-
+{% load static %}
 {% block content %}
 
     <br>
     <br>
     <br>
     <br>
-
+    <!-- <div class="jumbotron">
+      <h1 class="display-4">Hello, world!</h1>
+      <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+      <hr class="my-4">
+      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+      </p>
+    </div> -->
     <div class="row justify-content-center mt-5">
         <div class="col-md-6 text-center">
                  <h1>MedTech: Protect The Skin You’re In.</h1>
                  <p>MedTech provides a platform to our users for <b>early detection </b> of skin cancer from your home. Never forgot that skin cancer is treated best only when detected early!</p>
+
                   <p><i> <b>Don’t Let Cancer Get Under Your Skin.</b></i></p>
-        <a role="button" class="btn btn-info btn-lg" href="{% url 'signupuser' %}">Start</a>
+
+                  {% if user.is_authenticated %}
+                  {% else %}
+                      <a role="button" class="btn btn-success btn-lg" href="{% url 'signupuser' %}" >
+                        Start
+                        <i class="fas fa-briefcase-medical"></i>
+                      </a>
+                  {% endif %}
+
         </div>
     </div>
-<br>
-<br>
+<br><br>
 <hr>
  <!-- ********************************************************* COLLAPSE ************************************************* -->
 
@@ -29,9 +45,9 @@
 
 <div id="accordion">
   <div class="card">
-    <div class="card-header" id="headingOne">
+    <div class="card-header bg-light" id="headingOne">
       <h5 class="mb-0">
-        <button class="btn btn-light" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <button class="btn btn-info" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           Introduction
         </button>
       </h5>
@@ -47,9 +63,9 @@
   </div>
 
   <div class="card">
-    <div class="card-header" id="headingTwo">
+    <div class="card-header bg-light" id="headingTwo">
       <h5 class="mb-0">
-        <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <button class="btn btn-secondary collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
         Melanoma Skin Cancer
         </button>
       </h5>
@@ -68,9 +84,9 @@
   </div>
 
   <div class="card">
-    <div class="card-header" id="headingThree">
+    <div class="card-header bg-light" id="headingThree">
       <h5 class="mb-0">
-        <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <button class="btn btn-info collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
           Risk Factors
         </button>
       </h5>
@@ -96,9 +112,9 @@
   </div>
 
   <div class="card">
-    <div class="card-header" id="headingFour">
+    <div class="card-header bg-light" id="headingFour">
       <h5 class="mb-0">
-        <button class="btn btn-light" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+        <button class="btn btn-secondary" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
           Prevention
         </button>
       </h5>
@@ -122,9 +138,9 @@
 </div>
 
 <div class="card">
-  <div class="card-header" id="headingFive">
+  <div class="card-header bg-light" id="headingFive">
     <h5 class="mb-0">
-      <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+      <button class="btn btn-info collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
         Early Detection
       </button>
     </h5>
@@ -203,13 +219,44 @@
     </div>
   </div>
 </div>
+
+<br>
+
+
+<!-- ********************************************************* CAROUSEL ******************************************************** -->
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'patient/fact.png' %}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'patient/fact2.png' %}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'patient/fact3.png' %}" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+
+
+
+
+
 <br>
 <br>
-
-
-
-<!-- ********************************************************* TOGGLE ******************************************************** -->
-
-
-
 {% endblock %}

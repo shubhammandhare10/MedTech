@@ -16,18 +16,25 @@
 <div class="row justify-content-center mt-5">
     <div class="col-md-10">
     {% if patientsInfo %}
-        <div class="list-group">
+        <div class="list-group-center">
             {% for patient in patientsInfo %}
-                <a href='{% url 'viewpatientinfo' patient.id %}'>
+                <a role="button" class="btn btn-warning" href='{% url 'viewpatientinfo' patient.id %}'>
                    {{ patient.Full_name }}
                 </a>
+
+                <a role="button" class="btn btn-secondary" href='{% url 'deletepatientinfo' patient.id %}'>
+                   Delete?
+                </a>
+                <p>{{ patient.created|date:'d F Y,l' }} &nbsp;&nbsp;&nbsp; <b> Result: </b>{{ patient.result }}</p>
+
+                <br>
             {% endfor %}
         </div>
     {% else %}
         <div class="text-center">
             <h2>Looks like you don't have any profiles!</h2>
         <br>
-        <a role="button" class="btn btn-primary" href="{% url 'createpatientinfo' %}">New Todo</a>
+        <a role="button" class="btn btn-primary" href="{% url 'createpatientinfo' %}">Create new</a>
         </div>
     {% endif %}
     </div>

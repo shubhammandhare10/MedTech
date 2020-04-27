@@ -7,15 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+     <!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
+    <script src="https://kit.fontawesome.com/4c8e76cfc5.js" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="icon" type="image/png"  href="{% static 'patient/medical.png' %}">
     <title>MedTech</title>
 </head>
 <body>
 
 
-  <nav class="navbar navbar-expand-md navbar-light bg-light">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark py-3" >
   <div class="container">
       <a class="navbar-brand" href="{% url 'home' %}">
            <img src="{% static 'patient/medical.png' %}" width="30" height="30" class="d-inline-block align-top">
@@ -29,11 +33,11 @@
           <ul class="navbar-nav mr-auto">
 
                   <li class="nav-item {{ current }}">
-                      <a class="nav-link" href="{% url 'currentinfo' %}">Current</a>
+                      <a class="nav-link" href="{% url 'currentinfo' %}">View Profiles</a>
                   </li>
 
                   <li class="nav-item {{ create }}">
-                      <a class="nav-link" href="{% url 'createpatientinfo' %}">Create</a>
+                      <a class="nav-link" href="{% url 'createpatientinfo' %}">Create Profile</a>
                   </li>
 
           </ul>
@@ -41,7 +45,7 @@
       <ul class="navbar-nav ml-auto">
               {% if user.is_authenticated %}
                   <li class="nav-item">
-                      <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
+                      <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout <i class="fas fa-sign-out-alt"></i></a>
                       <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
                           {% csrf_token %}
                           <button id="signOutBtn" type="submit">Logout</button>
@@ -49,10 +53,10 @@
                   </li>
               {% else %}
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'signupuser' %}">Sign Up</a>
+                      <a class="nav-link" href="{% url 'signupuser' %}">Sign Up <i class="fas fa-user-plus"></i></a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'loginuser' %}">Login</a>
+                      <a class="nav-link" href="{% url 'loginuser' %}"> Login <i class="fas fa-user"></i></a>
                   </li>
               {% endif %}
           </ul>

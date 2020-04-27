@@ -101,10 +101,20 @@ def createpatientinfo(request):
 
 @login_required
 def currentinfo(request):
-    patientsInfo = Patient.objects.filter(user=request.user)
+    patientsInfo = Patient.objects.filter(user=request.user).order_by('-created')
     return render(request,'patient/currentinfo.html',{'patientsInfo':patientsInfo})
 
 @login_required
 def viewpatientinfo(request,patient_pk):
     patientInfo = get_object_or_404(Patient, pk=patient_pk, user = request.user)
     return render(request, 'patient/viewpatientinfo.html',{'patientInfo':patientInfo})
+
+
+@login_required
+def deletepatientinfo(request,patient_pk):
+    deletePatientInfo = get_object_or_404(Patient, pk=patient_pk, user=request.user)
+    if request.method == "GET":
+        return render(request, "patient/deletepatientinfo.html",{'deletePatientInfo':deletePatientInfo})
+    else:
+        deletePatientInfo.delete()
+        return redirect('currentinfo')
