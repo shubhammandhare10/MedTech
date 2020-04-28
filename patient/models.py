@@ -14,6 +14,8 @@ class Patient(models.Model):
     created = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     result = models.CharField(max_length=50)
+    image_key = models.CharField(max_length=200)
+    image_name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.Full_name

@@ -6,6 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import PatientInfoForm
 from .models import Patient
 from django.contrib.auth.decorators import login_required
+from cryptography.fernet import Fernet
 
 
 # Create your views here.
@@ -57,11 +58,20 @@ def createpatientinfo(request):
             newPatientInfo.user = request.user
             image = request.FILES['Skin_image'].name
             print("*******************",image)
+
+            newPatientInfo.image_name = image
             newPatientInfo.save()
 
-# ENCRYPTION CODE
-            from cryptography.fernet import Fernet
+
+
+# ******************************************** ENCRYPTION CODE ************************************************
             key = Fernet.generate_key()
+            key = key.decode('utf-8')
+            # print("-------------------------------------------------",key)
+
+            newPatientInfo.image_key = key
+            newPatientInfo.save(update_fields=['image_key'])
+
             input_file = "media/patient/images/" + image
             encrypted_file = "encryptedImages/" + image
 
@@ -73,24 +83,7 @@ def createpatientinfo(request):
 
             with open(encrypted_file, 'wb') as f:
                 f.write(encrypted)
-#
-# # WEKA CODE
-#
-# #DECRYPTION CODE
-            input_file = encrypted_file
-            decrypted_file = "decryptedImages/" + image
-
-            with open(input_file, 'rb') as f:
-                data = f.read()
-
-            fernet = Fernet(key)
-            encrypted = fernet.decrypt(data)
-
-            with open(decrypted_file, 'wb') as f:
-                f.write(encrypted)
-
-            newPatientInfo.result = 'Benign'
-            newPatientInfo.save(update_fields=['result'])
+# ******************************************** ENCRYPTION CODE END************************************************
 
 
             return redirect('currentinfo')
@@ -107,6 +100,37 @@ def currentinfo(request):
 @login_required
 def viewpatientinfo(request,patient_pk):
     patientInfo = get_object_or_404(Patient, pk=patient_pk, user = request.user)
+
+    # image = patientInfo.image_name
+    # print("**********************************",image)
+    #
+    # key = patientInfo.image_key
+    # print("----------------------------------",key)
+
+
+
+    # ***************************************************  DECRYPTION CODE ************************************************
+    image = patientInfo.image_name
+    input_file = "encryptedImages/" + image
+    decrypted_file = "decryptedImages/" + image
+    key = patientInfo.image_key
+    # print("************************************************",key)
+
+    with open(input_file, 'rb') as f:
+        data = f.read()
+
+    fernet = Fernet(key)
+    encrypted = fernet.decrypt(data)
+
+    with open(decrypted_file, 'wb') as f:
+        f.write(encrypted)
+
+# ***************************************************  DECRYPTION CODE END ************************************************
+
+    #  WEKA CODE
+    patientInfo.result = 'Benign'
+    patientInfo.save(update_fields=['result'])
+
     return render(request, 'patient/viewpatientinfo.html',{'patientInfo':patientInfo})
 
 
