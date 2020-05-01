@@ -8,7 +8,15 @@ from .models import Patient
 from django.contrib.auth.decorators import login_required
 from cryptography.fernet import Fernet
 
-
+import weka.core.jvm as JVM
+from weka.classifiers import Classifier, Kernel
+from weka.core.converters import Loader, Saver
+from patient import HybridTransform as Hybrid
+from scipy.fftpack import dct
+import numpy as np
+import math
+import cv2
+import pandas as pd
 # Create your views here.
 
 def home(request):
@@ -60,6 +68,7 @@ def createpatientinfo(request):
             print("*******************",image)
 
             newPatientInfo.image_name = image
+
             newPatientInfo.save()
 
 
@@ -67,7 +76,6 @@ def createpatientinfo(request):
 # ******************************************** ENCRYPTION CODE ************************************************
             key = Fernet.generate_key()
             key = key.decode('utf-8')
-            # print("-------------------------------------------------",key)
 
             newPatientInfo.image_key = key
             newPatientInfo.save(update_fields=['image_key'])
@@ -83,7 +91,7 @@ def createpatientinfo(request):
 
             with open(encrypted_file, 'wb') as f:
                 f.write(encrypted)
-# ******************************************** ENCRYPTION CODE END************************************************
+
 
 
             return redirect('currentinfo')
@@ -125,10 +133,70 @@ def viewpatientinfo(request,patient_pk):
     with open(decrypted_file, 'wb') as f:
         f.write(encrypted)
 
-# ***************************************************  DECRYPTION CODE END ************************************************
 
-    #  WEKA CODE
-    patientInfo.result = 'Benign'
+
+# -----------------------------------------------------  WEKA CODE  ---------------------------------------------------
+    JVM.start(max_heap_size="4000m")
+
+    clsfr,_ = Classifier.deserialize(r"patient\static\patient\Melanoma_Best_Performing_Weka3.8.model")
+    haarSize = 8
+    dctMat = dct(np.eye(64), norm='ortho')
+    haarMat = Hybrid.haar(haarSize)
+
+    for i in range(haarSize):
+    	haarMat[i] = haarMat[i]/math.sqrt(abs(haarMat[i]).sum())
+
+    hybridTransformMat = Hybrid.hybridTransform(haarMat, dctMat.transpose())
+
+    fPath = "decryptedImages/"
+    fName = image
+
+    img = cv2.imread(fPath + fName)
+    imgResize = cv2.resize(img, (512, 512), interpolation = cv2.INTER_AREA)
+
+    bFeatures64, gFeatures64, rFeatures64, _, _, _, _, _, _ = Hybrid.hybridTransformation(imgResize, hybridTransformMat)
+
+    bFeatures64 = bFeatures64.reshape((1,bFeatures64.shape[0]))
+    gFeatures64 = gFeatures64.reshape((1,gFeatures64.shape[0]))
+    rFeatures64 = rFeatures64.reshape((1,rFeatures64.shape[0]))
+    diagnosisMat = np.full((1,1), "NA")
+
+    features64 = np.concatenate((bFeatures64,gFeatures64,rFeatures64,diagnosisMat), axis=1)
+
+    op_file_name = "arff_csv_files/HybridTransformFeatures64-Haar"+str(haarSize)+ "DCT"+str(dctMat.shape[0])+fName
+    pd.DataFrame(features64).to_csv(op_file_name + ".csv", header=True, mode='a', index=False)
+
+    csvLoader = Loader(classname="weka.core.converters.CSVLoader")
+    data = csvLoader.load_file(op_file_name+".csv")
+
+    arffSaver = Saver(classname="weka.core.converters.ArffSaver")
+    arffSaver.save_file(data, op_file_name+".arff")
+
+    arffLoader = Loader(classname="weka.core.converters.ArffLoader")
+    arff_data = arffLoader.load_file(op_file_name+".arff")
+    arff_data.class_is_last()
+
+    diagnosis = ""
+    for index, inst in enumerate(arff_data):
+    	pred = clsfr.classify_instance(inst)
+    	print(pred)
+    	dist = clsfr.distribution_for_instance(inst)
+    	print(dist)
+
+    	if pred==1.0:
+    		diagnosis = "Malignant"
+    	else:
+    		diagnosis = "Benign"
+
+    print("Final Diagnosis: ***************************************************", diagnosis)
+    JVM.stop()
+
+
+
+
+# -----------------------------------------------------  WEKA CODE END ---------------------------------------------------
+
+    patientInfo.result = diagnosis
     patientInfo.save(update_fields=['result'])
 
     return render(request, 'patient/viewpatientinfo.html',{'patientInfo':patientInfo})
