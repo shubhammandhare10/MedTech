@@ -7,7 +7,7 @@
  - Create profiles wherein the user has to enter some basic information regarding the mole on the skin and 
    then upload a photo of the affected area.
  - With the help of our trained machine learning model we then identify if the uploaded skin image is a 
-   Benign (does not invade or harm the surrounding area) or Malignant (may invade and spread across the body)
+   Benign (does not invade or harm the surrounding area) or Malignant (may invade and spread across the body) mole.
  - The user can create multiple profiles.
  - The password of the user is protected using the SHA256 hashing technique.
  - The images uploaded are also encrypted using AES encryption method.
